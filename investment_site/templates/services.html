@@ -1,0 +1,201 @@
+
+{% extends "base.html" %}
+
+{% block title %}Services - Congo Finance{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4 fw-bold mb-4">Nos Services Complets</h1>
+                <p class="lead mb-0">Solutions d'investissement adaptées à tous les profils d'investisseurs</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Grid -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-5">
+            <!-- Service 1 -->
+            <div class="col-lg-6">
+                <div class="feature-card p-5">
+                    <div class="feature-icon mb-4">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3 class="fw-bold mb-4">Gestion de Portefeuille Personnalisée</h3>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <h6 class="fw-bold text-primary"><i class="fas fa-check-circle me-2"></i>Allocation stratégique</h6>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <h6 class="fw-bold text-primary"><i class="fas fa-check-circle me-2"></i>Rééquilibrage trimestriel</h6>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <h6 class="fw-bold text-primary"><i class="fas fa-check-circle me-2"></i>Accès obligations souveraines</h6>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <h6 class="fw-bold text-primary"><i class="fas fa-check-circle me-2"></i>Actions minières</h6>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-4 bg-light rounded-3">
+                        <h6 class="fw-bold text-success mb-2">Frais: 1.2% AUM/an</h6>
+                        <p class="mb-0 small">Minimum 50 000 USD</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="col-lg-6">
+                <div class="feature-card p-5">
+                    <div class="feature-icon mb-4">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="fw-bold mb-4">Conseil en Investissement Indépendant</h3>
+                    <p class="lead mb-4">Analyse objective sans conflit d'intérêt</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-3 p-3 border-start border-4 border-primary">
+                            <i class="fas fa-angle-right text-primary me-3"></i>
+                            <strong>Plan financier pluriannuel</strong>
+                        </li>
+                        <li class="mb-3 p-3 border-start border-4 border-success">
+                            <i class="fas fa-angle-right text-success me-3"></i>
+                            <strong>Choix de véhicules d'investissement</strong>
+                        </li>
+                        <li class="mb-3 p-3 border-start border-4 border-info">
+                            <i class="fas fa-angle-right text-info me-3"></i>
+                            <strong>Optimisation fiscale</strong>
+                        </li>
+                    </ul>
+                    <div class="alert alert-info mt-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Honoraires horaires: 250 USD/h
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 3 & 4 -->
+        <div class="row g-5 mt-5">
+            <div class="col-lg-6">
+                <div class="feature-card p-5">
+                    <div class="feature-icon mb-4">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="fw-bold mb-4">Protection et Gestion des Risques</h3>
+                    <p>Nos stratégies avancées pour sécuriser votre capital:</p>
+                    <div class="row text-center mt-4">
+                        <div class="col-6 mb-4">
+                            <div class="bg-danger-subtle p-3 rounded-circle mx-auto" style="width: 80px; height: 80px;">
+                                <div class="text-danger fw-bold fs-5">-25% max</div>
+                            </div>
+                            <p class="mt-2 small text-muted">Drawdown maximum</p>
+                        </div>
+                        <div class="col-6 mb-4">
+                            <div class="bg-success-subtle p-3 rounded-circle mx-auto" style="width: 80px; height: 80px;">
+                                <div class="text-success fw-bold fs-5">VaR 95%</div>
+                            </div>
+                            <p class="mt-2 small text-muted">Contrôle risque</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="feature-card p-5">
+                    <div class="feature-icon mb-4">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3 class="fw-bold mb-4">Investissements Responsables</h3>
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center mb-3 p-2 bg-light rounded">
+                            <div class="bg-success rounded-circle me-3 p-2">
+                                <i class="fas fa-leaf text-white fs-6"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1 text-success">ESG Intégré</h6>
+                                <p class="mb-0 small">Critères environnementaux, sociaux et gouvernance</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center p-2 bg-light rounded">
+                            <div class="bg-primary rounded-circle me-3 p-2">
+                                <i class="fas fa-globe-africa text-white fs-6"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1 text-primary">Focus Afrique</h6>
+                                <p class="mb-0 small">Opportunités continentales sous-évaluées</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Performance Table -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Performance Historique</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Stratégie</th>
+                                <th>1 An</th>
+                                <th>3 Ans</th>
+                                <th>5 Ans</th>
+                                <th>Volatilité</th>
+                                <th>Sharpe</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-success">
+                                <td><strong>Actions Afrique</strong></td>
+                                <td><strong>+22.4%</strong></td>
+                                <td><strong>+18.7%</strong></td>
+                                <td><strong>+16.2%</strong></td>
+                                <td>14.2%</td>
+                                <td>1.25</td>
+                            </tr>
+                            <tr>
+                                <td>Portefeuille Equilibré</td>
+                                <td>+15.8%</td>
+                                <td>+12.4%</td>
+                                <td>+11.1%</td>
+                                <td>9.8%</td>
+                                <td>1.18</td>
+                            </tr>
+                            <tr class="table-info">
+                                <td><strong>Obligations Haut Rendement</strong></td>
+                                <td><strong>+13.2%</strong></td>
+                                <td><strong>+10.9%</strong></td>
+                                <td><strong>+9.7%</strong></td>
+                                <td>7.5%</td>
+                                <td>1.32</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center mt-4">
+                    <small class="text-muted">Performance nette de frais au 31/12/2023 | Passé ne préjuge pas de l'avenir</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="section-title mb-4">Prêt à commencer ?</h2>
+        <p class="lead mb-4">Contactez-nous pour une analyse gratuite de votre situation</p>
+        <a href="{{ url_for('contact') }}" class="btn btn-primary-custom btn-lg px-5">Demander une Consultation</a>
+    </div>
+</section>
+{% endblock %}
+

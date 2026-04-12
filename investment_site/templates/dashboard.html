@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Congo Finance{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-5 pt-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h2 fw-bold text-dark">
+                    <i class="fas fa-tachometer-alt me-3 text-primary"></i>
+                    Mon Dashboard
+                </h1>
+                <a href="{{ url_for('deposit') }}" class="btn btn-success btn-lg">
+                    <i class="fas fa-plus me-2"></i>Déposer
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Balance Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-lg-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-wallet fa-3x text-success mb-3"></i>
+                    <h3 class="fw-bold text-success">{{ "%.0f"|format(user.balance) }} FCFA</h3>
+                    <p class="text-muted mb-0">Solde Actuel</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-coins fa-3x text-warning mb-3"></i>
+                    <h3 class="fw-bold text-warning">{{ "%.0f"|format(promo_bonus_balance or 0) }} FCFA</h3>
+                    <p class="text-muted mb-0">Bonus Promo Disponible</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-chart-line fa-3x text-info mb-3"></i>
+                    <h3 class="fw-bold text-info">{{ "%.2f"|format(daily_gain) }} FCFA/jour</h3>
+                    <p class="text-muted mb-1">Gain Quotidien Projeté</p>
+                    <small class="text-success fw-bold">Taux: {{ "%.1f"|format((user.custom_rate or 0.0214)*100) }}%</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-calendar-day fa-3x text-primary mb-3"></i>
+                    <h3 class="fw-bold text-primary">{{ remaining_days }} jours</h3>
+                    <p class="text-muted mb-0">Restant (15j)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Withdraw Form -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-lg h-100">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-money-bill-wave me-2"></i>Retirer de l'Argent
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ 'success' if '✅' in message else 'danger' }} alert-dismissible fade show" role="alert">
+                                    {{ message|safe }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-4">
+                            {{ form.amount.label(class="form-label fw-semibold") }}
+                            {{ form.amount(class="form-control form-control-lg", placeholder="Montant en FCFA") }}
+                            {% if form.amount.errors %}
+                                <div class="text-danger small mt-1">{{ form.amount.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="d-grid">
+                            {{ form.submit(class="btn btn-danger btn-lg rounded-pill shadow-lg") }}
+                        </div>
+                    </form>
+                    <div class="text-center mt-4 p-3 bg-light rounded-3">
+                        <small class="text-muted">
+                            <i class="fab fa-whatsapp text-success me-1"></i>
+                            Retrait traité via WhatsApp en 24h max
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-lg h-100">
+                <div class="card-header bg-info text-white py-3 position-relative">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="fas fa-bell me-2"></i>Notifications 
+                        {% if unread_count %}
+                        <span class="badge bg-danger ms-2">{{ unread_count }}</span>
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    {% if notifications %}
+                        {% for notif in notifications[:5] %}
+                            <div class="p-4 border-bottom {% if not notif.is_read %}bg-light{% endif %}">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <p class="mb-1 fw-semibold">{{ notif.message }}</p>
+                                        <small class="text-muted">{{ notif.created_at.strftime('%d/%m/%Y %H:%M') }}</small>
+                                    </div>
+                                    {% if not notif.is_read %}
+                                        <form method="POST" action="{{ url_for('mark_notification_read', notif_id=notif.id) }}" style="width: auto;">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-sm btn-outline-primary rounded-pill">Lu</button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="p-4 text-center text-muted">
+                            <i class="fas fa-inbox fa-2x mb-3 opacity-50"></i>
+                            <p>Aucune notification</p>
+                        </div>
+                    {% endif %}
+                </div>
+                {% if notifications %}
+                <div class="card-footer bg-light border-0 pt-0">
+                    <a href="#" class="text-decoration-none small text-primary">Voir toutes les notifications</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Projections -->
+        <div class="col-12 mt-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">Projections</h5>
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <div class="p-3 bg-light rounded-3">
+                                <h4 class="text-success fw-bold">{{ "%.0f"|format(projected_next) }} FCFA</h4>
+                                <small class="text-muted">Solde après 24h</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 bg-light rounded-3">
+                                <h4 class="text-info fw-bold">{{ "%.0f"|format(projected_next + daily_gain * 14) }} FCFA</h4>
+                                <small class="text-muted">Fin période (15j)</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 bg-light rounded-3">
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ (days_elapsed/15)*100 }}%" aria-valuenow="{{ days_elapsed }}" aria-valuemin="0" aria-valuemax="15"></div>
+                                </div>
+                                <small class="mt-1 d-block text-muted">{{ days_elapsed }}/15 jours écoulés</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Promo Code -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="alert alert-info">
+                <h6><i class="fas fa-gift me-2"></i>Votre Code Promo:</h6>
+                <div class="d-flex align-items-center">
+                    <code class="bg-light px-3 py-2 rounded me-3 fs-5 fw-bold">{{ promo_code }}</code>
+                    <small class="text-muted">Utilisations: {{ promo_uses or 0 }}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.progress { border-radius: 10px; }
+.card { transition: transform 0.2s; }
+.card:hover { transform: translateY(-2px); }
+</style>
+{% endblock %}

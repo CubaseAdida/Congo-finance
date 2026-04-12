@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Inscription - Congo Finance{% endblock %}
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-user-plus fa-3x text-primary mb-3"></i>
+                        <h2 class="fw-bold text-dark">Créer un compte</h2>
+                        <p class="text-muted">Rejoignez Congo Finance dès aujourd'hui</p>
+                    </div>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ 'danger' if category == 'danger' else 'success' }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-4">
+                            {{ form.email.label(class="form-label fw-semibold") }}
+                            {{ form.email(class="form-control form-control-lg rounded-3 shadow-sm", placeholder="votre@email.com") }}
+                            {% if form.email.errors %}
+                                <div class="text-danger small mt-1">{{ form.email.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-4">
+                            {{ form.password.label(class="form-label fw-semibold") }}
+                            {{ form.password(class="form-control form-control-lg rounded-3 shadow-sm") }}
+                            {% if form.password.errors %}
+                                <div class="text-danger small mt-1">{{ form.password.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-4">
+                            {{ form.confirm_password.label(class="form-label fw-semibold") }}
+                            {{ form.confirm_password(class="form-control form-control-lg rounded-3 shadow-sm") }}
+                            {% if form.confirm_password.errors %}
+                                <div class="text-danger small mt-1">{{ form.confirm_password.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-4">
+                            {{ form.promo_code.label(class="form-label fw-semibold") | safe }}
+                            {{ form.promo_code(class="form-control form-control-lg rounded-3 shadow-sm", placeholder="Entrez un code promo (optionnel)") }}
+                            {% if form.promo_code.errors %}
+                                <div class="text-danger small mt-1">{{ form.promo_code.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-4">
+                            {{ form.country.label(class="form-label fw-semibold") }}
+                            {{ form.country(class="form-control form-control-lg rounded-3 shadow-sm") }}
+                            {% if form.country.errors %}
+                                <div class="text-danger small mt-1">{{ form.country.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-4">
+                            {{ form.currency.label(class="form-label fw-semibold") }}
+                            {{ form.currency(class="form-control form-control-lg rounded-3 shadow-sm") }}
+                            {% if form.currency.errors %}
+                                <div class="text-danger small mt-1">{{ form.currency.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="d-grid">
+                            {{ form.submit(class="btn btn-primary btn-lg rounded-pill shadow") }}
+                        </div>
+                    </form>
+                    <div class="text-center mt-4">
+                        <p class="text-muted">Déjà un compte ? <a href="{{ url_for('login') }}" class="text-primary fw-semibold">Se connecter</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

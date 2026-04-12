@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% block title %}Dépôt - Congo Finance{% endblock %}
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-6">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-transparent border-0 text-center pb-0">
+                    <i class="fas fa-credit-card fa-3x text-success mb-3"></i>
+                    <h2 class="fw-bold text-dark mb-1">Déposer de l'argent</h2>
+                    <p class="text-muted lead">Choisissez votre moyen de paiement sécurisé</p>
+                </div>
+                <div class="card-body p-5">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show mb-4" role="alert">
+                                    {{ message | safe }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        
+                        <!-- Step 1: Montant -->
+                        <div class="mb-5">
+                            <label class="form-label fs-5 fw-semibold text-dark mb-4 d-block">💰 Dépôt (tout montant accepté)</label>
+                            <div class="input-group input-group-lg shadow-sm">
+                                <span class="input-group-text bg-gradient-success border-0 text-white fs-6 fw-bold">FCFA</span>
+                                {{ form.amount(class="form-control form-control-lg border-0 shadow-none rounded-end", placeholder="Ex: 50,000") }}
+                            </div>
+                            {% for error in form.amount.errors %}
+                                <div class="invalid-feedback d-block mt-2">{{ error }}</div>
+                            {% endfor %}
+                            <small class="text-muted mt-2 d-block">Frais: Gratuit</small>
+                        </div>
+
+                        <!-- Step 2: Moyens de paiement -->
+                        <div class="mb-5">
+                            <label class="form-label fs-5 fw-semibold text-dark mb-4 d-block">💳 Choisir le moyen de paiement</label>
+                            <div class="row g-3">
+                                <!-- Visa -->
+                                <div class="col-md-6">
+                                    <div class="payment-method card border-primary hover-shadow position-relative overflow-hidden rounded-3 p-4 text-center" data-method="visa">
+                                        <div class="payment-logo mb-3">
+                                            <i class="fab fa-cc-visa fa-3x text-primary"></i>
+                                        </div>
+                                        <h6 class="fw-bold mb-1">Visa</h6>
+                                        <small class="text-muted">Carte bancaire</small>
+                                    </div>
+                                </div>
+                                
+                                <!-- Mastercard -->
+                                <div class="col-md-6">
+                                    <div class="payment-method card border-warning hover-shadow position-relative overflow-hidden rounded-3 p-4 text-center" data-method="mastercard">
+                                        <div class="payment-logo mb-3">
+                                            <i class="fab fa-cc-mastercard fa-3x text-warning"></i>
+                                        </div>
+                                        <h6 class="fw-bold mb-1">Mastercard</h6>
+                                        <small class="text-muted">Carte bancaire</small>
+                                    </div>
+                                </div>
+                                
+                                <!-- MTN MoMo -->
+                                <div class="col-md-6">
+                                    <div class="payment-method card border-success hover-shadow position-relative overflow-hidden rounded-3 p-4 text-center" data-method="momo">
+                                        <div class="payment-logo mb-3">
+                                        <img src="{{ url_for('static', filename='images/MoMo-Logo-e1713178859773-1024x423.png') }}" alt="MTN MoMo" class="img-fluid" style="max-height: 50px;">
+                                        </div>
+                                        <h6 class="fw-bold mb-1">MTN MoMo</h6>
+                                        <small class="text-muted">Mobile Money</small>
+                                    </div>
+                                </div>
+                                
+                                <!-- Airtel Money -->
+                                <div class="col-md-6">
+                                    <div class="payment-method card border-info hover-shadow position-relative overflow-hidden rounded-3 p-4 text-center" data-method="airtel">
+                                        <div class="payment-logo mb-3">
+                                        <img src="{{ url_for('static', filename='images/Airtel-Money.png') }}" alt="Airtel Money" class="img-fluid" style="max-height: 50px;">
+                                        </div>
+                                        <h6 class="fw-bold mb-1">Airtel Money</h6>
+                                        <small class="text-muted">Mobile Money</small>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form.payment_method(class="d-none", id="payment_method") }}
+                            {% for error in form.payment_method.errors %}
+                                <div class="invalid-feedback d-block mt-2 text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-grid gap-3">
+                            {{ form.submit(class="btn btn-success btn-lg rounded-pill py-3 shadow-lg border-0", id="confirm_payment", onclick="openWhatsApp(); return false;") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(document).ready(function() {
+    const methods = $('.payment-method');
+    const paymentField = $('#payment_method');
+    const confirmBtn = $('#confirm_payment');
+    const amountField = $('input[name="amount"]');
+    
+    methods.on('click', function() {
+        methods.removeClass('selected');
+        $(this).addClass('selected');
+        paymentField.val($(this).data('method'));
+        updateBtnText();
+    });
+    
+    amountField.on('input', updateBtnText);
+    
+    window.openWhatsApp = function() {
+        const amount = parseFloat(amountField.val()) || 0;
+        const method = paymentField.val();
+        if (amount > 0 && method) {
+            const methodName = $(`.payment-method.selected h6`).text() || method.toUpperCase();
+            const message = `je veux deposer ${amount.toLocaleString()} FCFA via ${methodName} - Email: {{ current_user.email if current_user.is_authenticated else 'non connecté' }}`;
+            const whatsapp_url = `https://wa.me/242050542421?text=${encodeURIComponent(message)}`;
+            window.open(whatsapp_url, '_blank');
+        } else {
+            alert('Veuillez sélectionner un montant et un moyen de paiement.');
+        }
+    };
+    
+    function updateBtnText() {
+        const amount = parseFloat(amountField.val()) || 0;
+        const methodEl = $(`.payment-method.selected h6`);
+        const methodName = methodEl.length ? methodEl.text() : '';
+        if (amount > 0 && paymentField.val()) {
+            confirmBtn.html(`Ouvrir WhatsApp <strong>${amount.toLocaleString()}</strong> FCFA via ${methodName}`);
+        } else {
+            confirmBtn.html('Confirmer le paiement');
+        }
+    }
+});
+</script>
+
+<style>
+.payment-method {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent !important;
+}
+.payment-method:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+.payment-method.selected {
+    border-color: #28a745 !important;
+    background: linear-gradient(135deg, #f8f9ff, #e8f5e8) !important;
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.2) !important;
+}
+.payment-logo img {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+.bg-gradient-success {
+    background: linear-gradient(135deg, #28a745, #20c997) !important;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,213 @@
+
+{% extends "base.html" %}
+
+{% block title %}Contact - Congo Finance{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero py-5" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4 fw-bold mb-4">Contactez-Nous</h1>
+                <p class="lead mb-0">Prenez rendez-vous pour une consultation personnalisée gratuite</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Info & Form -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-5">
+            <!-- Contact Info -->
+            <div class="col-lg-4">
+                <h3 class="fw-bold mb-4 text-primary">Nos Coordonnées</h3>
+                
+                <div class="mb-4 p-4 border rounded-3 shadow-sm">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-primary rounded-circle p-3 me-4">
+                            <i class="fas fa-map-marker-alt text-white fs-5"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Adresse</h6>
+                            <p class="mb-0">Immeuble Congo Finance<br>Av. de la Justice, Gombe<br>Kinshasa, RDC</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4 p-4 border rounded-3 shadow-sm">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-success rounded-circle p-3 me-4">
+                            <i class="fas fa-phone text-white fs-5"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Téléphone</h6>
+                            <p class="mb-0"><a href="tel:+242050542421" class="text-decoration-none">+242 05 054 2421</a></p>
+                            <p class="mb-0 small text-muted">Lun-Ven 8h-18h</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 border rounded-3 shadow-sm">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-info rounded-circle p-3 me-4">
+                            <i class="fas fa-envelope text-white fs-5"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Email</h6>
+                            <p class="mb-0"><a href="mailto:contact@congofinance.com" class="text-decoration-none">contact@congofinance.com</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-5">
+                        <h3 class="fw-bold mb-4">Prenez Contact</h3>
+                        <form id="contactForm">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label for="nom" class="form-label fw-bold">Nom Complet *</label>
+                                    <input type="text" class="form-control form-control-lg" id="nom" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label fw-bold">Email *</label>
+                                    <input type="email" class="form-control form-control-lg" id="email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="telephone" class="form-label fw-bold">Téléphone</label>
+                                    <input type="tel" class="form-control form-control-lg" id="telephone">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="budget" class="form-label fw-bold">Budget d'Investissement</label>
+                                    <select class="form-select form-control-lg" id="budget">
+                                        <option value="">Sélectionner...</option>
+                                        <option value="lt50k">Moins de 50 000 USD</option>
+                                        <option value="50k100k">50k - 100k USD</option>
+                                        <option value="100k500k">100k - 500k USD</option>
+                                        <option value="gt500k">Plus de 500k USD</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label fw-bold">Message *</label>
+                                    <textarea class="form-control" id="message" rows="5" placeholder="Décrivez vos objectifs d'investissement, votre tolérance au risque, horizon temporel..." required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consent">
+                                        <label class="form-check-label" for="consent">
+                                            J'accepte le <a href="#" class="text-decoration-none">traitement de mes données</a> *
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column flex-md-row gap-3 mt-5">
+                                <button type="submit" class="btn btn-primary-custom btn-lg flex-fill">
+                                    <i class="fas fa-paper-plane me-2"></i>Envoyer
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-lg flex-fill" onclick="resetForm()">
+                                    Réinitialiser
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h3 class="section-title text-center mb-5">Où Nous Trouver</h3>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="ratio ratio-21x9 rounded-4 shadow-lg overflow-hidden">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3978.483406602614!2d15.30407961476698!3d-4.308474896515818!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNCDGsDE4JzI4LjciUyAxNcKwMTgnMTYuNiJF!5e0!3m2!1sfr!2sCD!4v1699999999999" 
+                            width="100%" height="100%" style="border:0; border-radius: 20px;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-5">
+    <div class="container">
+        <h3 class="section-title text-center mb-5">Questions Fréquentes</h3>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item border-0 shadow-sm mb-3 rounded-3">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                Quel est le montant minimum d'investissement ?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Le minimum est de 50 000 USD pour nos services de gestion de portefeuille. Pour le conseil indépendant, aucun minimum requis.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0 shadow-sm mb-3 rounded-3">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Quels sont vos frais ?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Gestion de portefeuille: 1.2% des actifs sous gestion par an. Conseil: 250 USD/heure. Pas de performance fees.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0 shadow-sm rounded-3">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Mes fonds sont-ils sécurisés ?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Oui. Vos fonds sont séparés et déposés chez un custodian bancaire international. Congo Finance ne peut jamais utiliser vos fonds.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function resetForm() {
+    document.getElementById('contactForm').reset();
+}
+
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Simulate form submission
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Envoi...';
+    submitBtn.disabled = true;
+    
+    setTimeout(() => {
+        alert('Merci pour votre message! Nous vous contacterons sous 24h.');
+        this.reset();
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }, 2000);
+});
+</script>
+{% endblock %}
+

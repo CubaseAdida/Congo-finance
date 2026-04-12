@@ -1,0 +1,98 @@
+
+{% extends "base.html" %}
+
+{% block title %}Accueil - Afriue Finance{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1>Investissez Intelligemment avec Afrique Finance</h1>
+                <p>Des solutions d'investissement professionnelles adaptées à vos objectifs financiers. Maximisez votre rendement avec nos experts certifiés.</p>
+                <a href="{{ url_for('services') }}" class="btn btn-primary-custom btn-lg">Découvrir Nos Services</a>
+            </div>
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Investissement" class="img-fluid rounded-4 shadow-lg" style="max-height: 500px; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Preview Section -->
+<section id="services" class="py-5">
+    <div class="container">
+        <h2 class="section-title text-center">Nos Services d'Investissement</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">Gestion de Portefeuille</h4>
+                    <p>Optimisation professionnelle de votre portefeuille d'investissement avec diversification stratégique.</p>
+                    <a href="{{ url_for('services') }}" class="btn btn-outline-primary mt-3">En savoir plus</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-building-columns"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">Conseil Financier</h4>
+                    <p>Conseils personnalisés par des experts pour atteindre vos objectifs financiers à long terme.</p>
+                    <a href="{{ url_for('services') }}" class="btn btn-outline-primary mt-3">En savoir plus</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">Protection du Capital</h4>
+                    <p>Stratégies de gestion des risques avancées pour protéger et faire croître votre capital.</p>
+                    <a href="{{ url_for('services') }}" class="btn btn-outline-primary mt-3">En savoir plus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="stat-number">+500</div>
+                <div>Investisseurs Satisfaits</div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-number">15%</div>
+                <div>Rendement Moyen Annuel</div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-number">10+</div>
+                <div>Années d'Expérience</div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-number">100M+</div>
+                <div>Actifs Sous Gestion</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section id="contact" class="cta-section">
+    <div class="container text-center">
+        <h2 class="display-4 fw-bold mb-4">Prêt à Investir ?</h2>
+        <p class="lead mb-4">Contactez-nous dès aujourd'hui pour une consultation gratuite et personnalisée.</p>
+        <a href="{{ url_for('contact') }}" class="btn btn-light btn-lg px-5 py-3">Prendre Rendez-vous</a>
+    </div>
+</section>
+{% endblock %}
+
