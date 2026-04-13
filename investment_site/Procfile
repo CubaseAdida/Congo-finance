@@ -1,0 +1,1 @@
+web: cd investment_site && gunicorn app:app
